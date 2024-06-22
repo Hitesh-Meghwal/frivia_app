@@ -88,7 +88,7 @@ class GamePage extends StatelessWidget {
   Widget _falseButton(BuildContext context) {
     return MaterialButton(
       onPressed: () {
-        _pageProvider ?.answerQuestion("False");
+        _pageProvider?.answerQuestion("False");
         // Provider.of<GamePageProviders>(context,listen: false).answerQuestion("False");
       },
       color: Colors.red,

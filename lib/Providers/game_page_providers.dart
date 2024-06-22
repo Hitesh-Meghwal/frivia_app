@@ -30,10 +30,38 @@ class GamePageProviders extends ChangeNotifier{
   }
 
   void answerQuestion(String _answer) async{
-    bool isCorrect = await questions![_currentQuestionCount]["correct_answer"] == _answer;
-    print(isCorrect);
+    bool isCorrect = questions![_currentQuestionCount]["correct_answer"] == _answer;
     _currentQuestionCount ++ ;
-    print( isCorrect? "Correct" : "Incorrect");
-    notifyListeners();
+
+    // showDialog(context: context, builder: (BuildContext  context){
+    //   return AlertDialog(
+    //     backgroundColor: isCorrect? Colors.green : Colors.red,
+    //     title: Icon(isCorrect? Icons.check_circle : Icons.cancel_sharp,
+    //     color: Colors.white,)
+    //   );
+    // });
+    // await Future.delayed(const Duration(seconds: 1));
+    // Navigator.of(context).pop();
+    if(_currentQuestionCount == _maxQuestions){
+      endGame();
+    }
+    else{
+      notifyListeners();
+    }
   }
+
+  Future<void> endGame() async{
+    showDialog(context: context, builder: (BuildContext  context){
+      return AlertDialog(
+        backgroundColor: Colors.blue,
+        title: const Text("Game End!!",style: TextStyle(color: Colors.white,fontSize: 25)),
+        content: Text("Score 0/0"),
+      );
+    });
+    await Future.delayed(const Duration(seconds: 3));
+    Navigator.of(context).pop();
+    Navigator.of(context).pop();
+  }
+
+
  }
