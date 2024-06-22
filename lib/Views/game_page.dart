@@ -5,6 +5,8 @@ import 'package:frivia_app/Providers/game_page_providers.dart';
 class GamePage extends StatelessWidget {
   GamePage({super.key});
   late double _deviceWidth, _deviceHeight;
+  GamePageProviders? _pageProvider;
+
 
   @override
   Widget build(BuildContext context) {
@@ -14,6 +16,7 @@ class GamePage extends StatelessWidget {
   }
 
   Widget _buildUI(BuildContext context) {
+    _pageProvider = context.watch<GamePageProviders>();
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.cyan[800],
@@ -34,11 +37,11 @@ class GamePage extends StatelessWidget {
         _questionText(context),
         Column(
           children: [
-            _trueButton(),
+            _trueButton(context),
             SizedBox(
               height: _deviceHeight * 0.05,
             ),
-            _falseButton(),
+            _falseButton(context),
           ],
         ),
       ],
@@ -66,10 +69,11 @@ class GamePage extends StatelessWidget {
     );
   }
 
-  Widget _trueButton() {
+  Widget _trueButton(BuildContext context) {
     return MaterialButton(
       onPressed: () {
-
+        _pageProvider?.answerQuestion("True");
+        // Provider.of<GamePageProviders>(context,listen: false).answerQuestion("True");
       },
       color: Colors.green,
       minWidth: _deviceWidth * 0.80,
@@ -81,10 +85,11 @@ class GamePage extends StatelessWidget {
     );
   }
 
-  Widget _falseButton() {
+  Widget _falseButton(BuildContext context) {
     return MaterialButton(
       onPressed: () {
-
+        _pageProvider ?.answerQuestion("False");
+        // Provider.of<GamePageProviders>(context,listen: false).answerQuestion("False");
       },
       color: Colors.red,
       minWidth: _deviceWidth * 0.80,
