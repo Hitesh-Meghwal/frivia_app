@@ -6,7 +6,8 @@ import 'package:dio/dio.dart';
 class GamePageProviders extends ChangeNotifier{
   final Dio _dio = Dio();
   final int _maxQuestions= 10;
-  List? _questions;
+  List? questions;
+  int _currentQuestionCount = 0;
 
   BuildContext context;
   GamePageProviders({required this.context}){
@@ -20,7 +21,11 @@ class GamePageProviders extends ChangeNotifier{
       'amount':10,'type':'boolean','difficulty':'easy'
     } );
     var _data = jsonDecode(response.toString());
-    _questions = _data['results'];
-    print(_questions);
+    questions = _data['results'];
+    notifyListeners();
+  }
+
+  String getCurrentQuestionText(){
+    return questions![_currentQuestionCount]["question"];
   }
  }
