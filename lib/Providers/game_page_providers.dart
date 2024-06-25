@@ -46,7 +46,7 @@ class GamePageProviders extends ChangeNotifier{
   void answerQuestion(BuildContext context,String _answer) async{
     bool isCorrect = questions![_currentQuestionCount]["correct_answer"] == _answer;
     _correctCount += isCorrect ? 1 : 0;
-    showDialog(context: context, builder: (BuildContext  context){
+    showDialog(context: context, barrierDismissible: false,builder: (BuildContext  context){
       return AlertDialog(
         content: Column(
           mainAxisSize: MainAxisSize.min,
