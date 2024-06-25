@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:frivia_app/Providers/game_page_providers.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();  // Ensuring widgets binding properly
   runApp(MyApp());
 }
 
