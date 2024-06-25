@@ -11,13 +11,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (context) => GamePageProviders(context: context),
+      create: (_) => GamePageProviders(),
       child: MaterialApp(
         title: 'Frivia',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           primarySwatch: Colors.deepPurple,
-          fontFamily: 'ArchitectsDaughter',
+          fontFamily: 'ArchitectsDaughter', 
         ),
         home: GamePage(),
       ),
