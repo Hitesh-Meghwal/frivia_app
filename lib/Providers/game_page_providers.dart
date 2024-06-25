@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
+import 'package:frivia_app/Views/home_page.dart';
 
 class GamePageProviders extends ChangeNotifier{
   final Dio _dio = Dio();
@@ -76,6 +77,7 @@ class GamePageProviders extends ChangeNotifier{
     
     Navigator.of(context).pop();
     Navigator.of(context).pop();
+    // Navigator.push(context, MaterialPageRoute(builder: (context)=> HomePage()));
   }
 
 

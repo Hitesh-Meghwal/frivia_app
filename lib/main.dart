@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:frivia_app/Views/home_page.dart';
 import 'package:provider/provider.dart';
 import 'package:frivia_app/Providers/game_page_providers.dart';
-import 'package:frivia_app/Views/game_page.dart';
 
 void main() {
   runApp(MyApp());
@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.deepPurple,
           fontFamily: 'ArchitectsDaughter', 
         ),
-        home: GamePage(),
+        home: const HomePage(),
       ),
     );
   }
