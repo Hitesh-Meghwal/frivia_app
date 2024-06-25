@@ -37,7 +37,7 @@ class GamePage extends StatelessWidget {
               style: TextStyle(color: Colors.white, fontSize: _deviceWidth * 0.08),
             ),
           );
-        } else {
+        } else {  
           return _gameUI(context, _pageProvider);
         }
       },
