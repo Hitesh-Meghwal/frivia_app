@@ -38,9 +38,15 @@ class GamePageProviders extends ChangeNotifier{
 
     showDialog(context: context, builder: (BuildContext  context){
       return AlertDialog(
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+          Icon(isCorrect? Icons.check_circle : Icons.cancel_sharp, color: Colors.white),
+          const SizedBox(height: 10.0,),
+          Text(isCorrect? "Right" : "Wrong", style: const TextStyle(color: Colors.white,fontSize: 18),),
+        ],),
         backgroundColor: isCorrect? Colors.green : Colors.red,
-        title: Icon(isCorrect? Icons.check_circle : Icons.cancel_sharp,
-        color: Colors.white,)
+
       );
     });
 
@@ -62,11 +68,12 @@ class GamePageProviders extends ChangeNotifier{
       return const AlertDialog(
         backgroundColor: Colors.blue,
         title: Text("Game End!!",style: TextStyle(color: Colors.white,fontSize: 25)),
-        content: Text("Score 0/0"),
+        content: Text("Score 0/0",style: TextStyle(color: Colors.white,fontSize: 25) ),
       );
     });
-    
+
     await Future.delayed(const Duration(seconds: 3));
+    
     Navigator.of(context).pop();
     Navigator.of(context).pop();
   }

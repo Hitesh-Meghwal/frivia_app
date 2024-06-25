@@ -17,7 +17,6 @@ class GamePage extends StatelessWidget {
 
   Widget _buildUI(BuildContext context) {
     _pageProvider = Provider.of<GamePageProviders>(context);
-    // _pageProvider = context.watch<GamePageProviders>();
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.cyan[800],
@@ -74,7 +73,6 @@ class GamePage extends StatelessWidget {
     return MaterialButton(
       onPressed: () {
         _pageProvider?.answerQuestion(context,"True");
-        // Provider.of<GamePageProviders>(context,listen: false).answerQuestion("True");
       },
       color: Colors.green,
       minWidth: _deviceWidth * 0.80,
@@ -90,7 +88,6 @@ class GamePage extends StatelessWidget {
     return MaterialButton(
       onPressed: () {
         _pageProvider?.answerQuestion(context,"False");
-        // Provider.of<GamePageProviders>(context,listen: false).answerQuestion("False");
       },
       color: Colors.red,
       minWidth: _deviceWidth * 0.80,
