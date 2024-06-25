@@ -9,11 +9,12 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (_) => GamePageProviders(),
-      child: MaterialApp(
+      create: (_) => GamePageProviders(difficultyLevel: ""),
+      child: MaterialApp( 
         title: 'Frivia',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(

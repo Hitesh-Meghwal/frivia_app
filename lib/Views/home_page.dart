@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:frivia_app/Providers/game_page_providers.dart';
 import 'package:frivia_app/Views/game_page.dart';
+import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -12,7 +14,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
 
   late double _deviceWidth, _deviceHeight;
-  double _currentDifficultyLevel = 20;
+  double _currentDifficultyLevel = 0;
 
   final List<String> _difficultyTexts = ['Easy','Medium','High'];
 
@@ -72,7 +74,7 @@ class _HomePageState extends State<HomePage> {
             ],
           ),
         ),
-        Text("$_currentDifficultyLevel", style: TextStyle(color: Colors.white,fontSize: _deviceWidth * 0.8),),
+        Text(_difficultyTexts[_currentDifficultyLevel.toInt()], style: TextStyle(color: Colors.white,fontSize: _deviceWidth * 0.08),),
 
       ],
     );
@@ -80,12 +82,13 @@ class _HomePageState extends State<HomePage> {
 
   Widget _sliderwidget(){
     return Slider(
+      min:0,
       value: _currentDifficultyLevel, 
-      max: 100,
-      divisions: 3,
+      max: 2,
+      divisions: 2,
       activeColor: Colors.cyan[400],
       thumbColor: Colors.white,
-      label: _currentDifficultyLevel.round().toString(),
+      label: "Difficulty",
       onChanged: (double value){
         setState(() {
           _currentDifficultyLevel = value;
@@ -99,9 +102,11 @@ class _HomePageState extends State<HomePage> {
       minWidth: _deviceWidth * 0.5,
       height: _deviceHeight * 0.1,
       color: Colors.cyan[900],
-      child: Text("PLAY", style: TextStyle(color: Colors.white, fontSize: _deviceWidth * 0.06),),
+      child: Text("Start", style: TextStyle(color: Colors.white, fontSize: _deviceWidth * 0.06),),
       onPressed: (){
-        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> GamePage()));
+        final gamePageProvider = Provider.of<GamePageProviders>(context, listen: false);
+        gamePageProvider.setDifficultyLevel(_difficultyTexts[_currentDifficultyLevel.toInt()].toLowerCase());
+        Navigator.push(context, MaterialPageRoute(builder: (context)=> GamePage(difficultyLevel: _difficultyTexts[_currentDifficultyLevel.toInt()].toLowerCase(),)));
       },
     );
   }

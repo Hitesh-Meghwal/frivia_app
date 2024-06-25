@@ -2,16 +2,17 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
-import 'package:frivia_app/Views/home_page.dart';
+import 'package:flutter/widgets.dart';
 
 class GamePageProviders extends ChangeNotifier{
   final Dio _dio = Dio();
   final int _maxQuestions= 10;
+  String difficultyLevel;
   List? questions;
   int _currentQuestionCount = 0;
   int _correctCount = 0;
 
-  GamePageProviders(){
+  GamePageProviders({required this.difficultyLevel}){
     _dio.options.baseUrl = "https://opentdb.com/api.php";
     _getQuestionsFromApi();
     
@@ -19,8 +20,9 @@ class GamePageProviders extends ChangeNotifier{
 
   Future<void> _getQuestionsFromApi() async {
     try{
+
         var response = await _dio.get('',queryParameters:{
-      'amount':10,'type':'boolean','difficulty':'easy'
+      'amount':10,'type':'boolean','difficulty':difficultyLevel
     } );
     var _data = jsonDecode(response.toString());
     questions = _data['results'];
@@ -33,6 +35,12 @@ class GamePageProviders extends ChangeNotifier{
 
   String getCurrentQuestionText(){
     return questions![_currentQuestionCount]["question"];
+
+  }
+
+  void setDifficultyLevel(String level) {
+    difficultyLevel = level;
+    _getQuestionsFromApi(); // Reload questions with the new difficulty level
   }
 
   void answerQuestion(BuildContext context,String _answer) async{
@@ -44,8 +52,8 @@ class GamePageProviders extends ChangeNotifier{
           mainAxisSize: MainAxisSize.min,
           children: [
           Icon(isCorrect? Icons.check_circle : Icons.cancel_sharp, color: Colors.white),
-          const SizedBox(height: 10.0,),
-          Text(isCorrect? "Right" : "Wrong", style: const TextStyle(color: Colors.white,fontSize: 18),),
+          SizedBox(height: MediaQuery.of(context).size.height * 0.015,),
+          Text(isCorrect? "Right" : "Wrong", style: TextStyle(color: Colors.white,fontSize: MediaQuery.of(context).size.width * 0.06),),
         ],),
         backgroundColor: isCorrect? Colors.green : Colors.red,
 
@@ -69,16 +77,16 @@ class GamePageProviders extends ChangeNotifier{
     showDialog(context: context, builder: (BuildContext  context){
       return AlertDialog(
         backgroundColor: Colors.blue,
-        title: const Text("Game End!!",style: TextStyle(color: Colors.white,fontSize: 25)),
-        content: Text("Score: $_correctCount/$_maxQuestions",style: TextStyle(color: Colors.white,fontSize: 25) ),
+        title: Center(child: Text("Game End!!",style: TextStyle(color: Colors.white,fontSize: MediaQuery.of(context).size.width * 0.08))),
+        content: Text("Score: $_correctCount/$_maxQuestions",style: TextStyle(color: Colors.white,fontSize: MediaQuery.of(context).size.width * 0.06)),
       );
     });
 
     await Future.delayed(const Duration(seconds: 3));
+    _currentQuestionCount = 0;
     
-    Navigator.of(context).pop();
-    Navigator.of(context).pop();
-    // Navigator.push(context, MaterialPageRoute(builder: (context)=> HomePage()));
+    Navigator.of(context).pop(); //to close dialod box
+    Navigator.of(context).pop(); // to close gamepage screen and goes back to homepage
   }
 
 
