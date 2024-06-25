@@ -102,7 +102,7 @@ class _HomePageState extends State<HomePage> {
       minWidth: _deviceWidth * 0.5,
       height: _deviceHeight * 0.1,
       color: Colors.cyan[900],
-      child: Text("Start", style: TextStyle(color: Colors.white, fontSize: _deviceWidth * 0.06),),
+      child: Text("Start", style: TextStyle(color: Colors.white, fontSize: _deviceWidth * 0.08),),
       onPressed: (){
         final gamePageProvider = Provider.of<GamePageProviders>(context, listen: false);
         gamePageProvider.setDifficultyLevel(_difficultyTexts[_currentDifficultyLevel.toInt()].toLowerCase());
